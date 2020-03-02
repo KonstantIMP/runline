@@ -21,7 +21,18 @@ private:
 
     QPushButton *paint_place[128][8];
 
+    void set_exit_file(QString);
+
     void set_ru();
     void set_en();
+
+private slots:
+    void save_paint();
+    void load_paint();
+    void get_exit_file();
+    void clear_all();
+    void fill_in();
+    void copy_arr();
+    void change_lang();
 };
 #endif // MAINWINDOW_H
