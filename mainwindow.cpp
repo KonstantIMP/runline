@@ -275,8 +275,33 @@ void MainWindow::load_paint(){
 
     QString tmp = exit_file.readLine();
 
+    while(1){
+        if(tmp.at(0) == '{' || tmp.at(0) == '0' || tmp.at(0) == '1') break;
+        tmp = exit_file.readLine();
+    }
     if(tmp.at(0) == '{') {
+        int hex_char = 0;
 
+        QString tmp_hex;
+
+        while(hex_char != 128){
+            for(int i{0}; i < tmp.length(); i++){
+                if(tmp.at(i) == 'x'){
+                    tmp_hex = QString(tmp.at(i + 1)) + QString(tmp.at(i + 2));
+                    tmp_hex = QString::number(tmp_hex.toInt(NULL, 16), 2);
+
+                    while(tmp_hex.length() != 8) tmp_hex = "0" + tmp_hex;
+
+                    for(int j{7}; j >= 0; j--){
+                        if(tmp_hex.at(7 - j) == '1') paint_place[hex_char][j]->clicked();
+                    }
+
+                    hex_char++;
+                }
+            }
+
+            tmp = exit_file.readLine();
+        }
     }
     else {
         for(int i{0}; i < 128; i++){
