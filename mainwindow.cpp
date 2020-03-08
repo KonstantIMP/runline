@@ -21,6 +21,77 @@ MainWindow::MainWindow(QWidget *parent)
     ui->up_grid->setSpacing(1);
     ui->down_grid->setSpacing(1);
 
+    ui->up_clear->setSpacing(1);
+    ui->down_clear->setSpacing(1);
+
+    ui->up_new_line->setText("▲");
+    ui->up_new_line->setStyleSheet("font-size: 7px;");
+    connect(ui->up_new_line, &QPushButton::clicked, this, &MainWindow::up_new_line_num);
+
+    ui->down_new_line->setText("▼");
+    ui->down_new_line->setStyleSheet("font-size: 7px;");
+    connect(ui->down_new_line, &QPushButton::clicked, this, &MainWindow::down_new_line_num);
+
+    clear_up_place = new OrientablePushButton();
+    clear_up_place->setOrientation(OrientablePushButton::VerticalBottomToTop);
+    clear_up_place->setMinimumSize(SIZE * 2, SIZE * 10);
+    clear_up_place->setMaximumSize(SIZE * 2, SIZE * 10);
+    clear_up_place->setStyleSheet("font-size: 12px;");
+    ui->horizontalLayout_6->addWidget(clear_up_place, 0);
+    connect(clear_up_place, &QPushButton::clicked, this, [=](){
+        for(int i{0}; i < 64; i++){
+            for(int j{0}; j < 8; j++){
+                paint_place[i][j]->setText("f");
+
+                paint_place[i][j]->setStyleSheet("QPushButton{"
+                                                 "background-color:white;"
+                                                 "color:white;"
+                                                 "border:1px solid #808080;"
+                                                 "}"
+                                                 "QPushButton:hover{"
+                                                 "background-color: #808080;"
+                                                 "color:#808080;"
+                                                 "border-color:black;"
+                                                 "}"
+                                                 "QPushButton:pressed{"
+                                                 "background-color:black;"
+                                                 "color:black;"
+                                                 "border-color:white;"
+                                                 "}");
+            }
+        }
+    });
+
+    clear_down_place = new OrientablePushButton();
+    clear_down_place->setOrientation(OrientablePushButton::VerticalBottomToTop);
+    clear_down_place->setMinimumSize(SIZE * 2, SIZE * 10);
+    clear_down_place->setMaximumSize(SIZE * 2, SIZE * 10);
+    clear_down_place->setStyleSheet("font-size: 12px;");
+    ui->horizontalLayout_8->addWidget(clear_down_place, 0);
+    connect(clear_down_place, &QPushButton::clicked, this, [=](){
+        for(int i{0}; i < 64; i++){
+            for(int j{0}; j < 8; j++){
+                paint_place[i + 64][j]->setText("f");
+
+                paint_place[i + 64][j]->setStyleSheet("QPushButton{"
+                                                 "background-color:white;"
+                                                 "color:white;"
+                                                 "border:1px solid #808080;"
+                                                 "}"
+                                                 "QPushButton:hover{"
+                                                 "background-color: #808080;"
+                                                 "color:#808080;"
+                                                 "border-color:black;"
+                                                 "}"
+                                                 "QPushButton:pressed{"
+                                                 "background-color:black;"
+                                                 "color:black;"
+                                                 "border-color:white;"
+                                                 "}");
+            }
+        }
+    });
+
     if(QLocale::languageToString(QLocale::system().language()) == "Russian") set_ru();
     else set_en();
 
@@ -164,6 +235,76 @@ MainWindow::MainWindow(QWidget *parent)
         }
     }
 
+    for(int i{0}; i < 64; i++){
+        clear_column[i] = new QPushButton;
+
+        clear_column[i]->setMinimumSize(SIZE, SIZE);
+        clear_column[i]->setMaximumSize(SIZE, SIZE);
+
+        clear_column[i]->setText(QString::number(i + 1, 10));
+
+        clear_column[i]->setStyleSheet("font-size: 8px;");
+
+        connect(clear_column[i], &QPushButton::clicked, this, [=](){
+            for(int j{0}; j < 8; j++){
+                paint_place[i][j]->setText("f");
+
+                paint_place[i][j]->setStyleSheet("QPushButton{"
+                                                 "background-color:white;"
+                                                 "color:white;"
+                                                 "border:1px solid #808080;"
+                                                 "}"
+                                                 "QPushButton:hover{"
+                                                 "background-color: #808080;"
+                                                 "color:#808080;"
+                                                 "border-color:black;"
+                                                 "}"
+                                                 "QPushButton:pressed{"
+                                                 "background-color:black;"
+                                                 "color:black;"
+                                                 "border-color:white;"
+                                                 "}");
+            }
+        });
+
+        ui->up_clear->addWidget(clear_column[i], i);
+    }
+
+    for(int i{0}; i < 64; i++){
+        clear_column[i + 64] = new QPushButton;
+
+        clear_column[i + 64]->setMinimumSize(SIZE, SIZE);
+        clear_column[i + 64]->setMaximumSize(SIZE, SIZE);
+
+        clear_column[i + 64]->setText(QString::number(i + 65, 10));
+
+        clear_column[i + 64]->setStyleSheet("font-size: 8px;");
+
+        connect(clear_column[i + 64], &QPushButton::clicked, this, [=](){
+            for(int j{0}; j < 8; j++){
+                paint_place[i + 64][j]->setText("f");
+
+                paint_place[i + 64][j]->setStyleSheet("QPushButton{"
+                                                 "background-color:white;"
+                                                 "color:white;"
+                                                 "border:1px solid #808080;"
+                                                 "}"
+                                                 "QPushButton:hover{"
+                                                 "background-color: #808080;"
+                                                 "color:#808080;"
+                                                 "border-color:black;"
+                                                 "}"
+                                                 "QPushButton:pressed{"
+                                                 "background-color:black;"
+                                                 "color:black;"
+                                                 "border-color:white;"
+                                                 "}");
+            }
+        });
+
+        ui->down_clear->addWidget(clear_column[i + 64], i);
+    }
+
     connect(ui->save_btn, &QPushButton::clicked, this, &MainWindow::save_paint);
     connect(ui->load_btn, &QPushButton::clicked, this, &MainWindow::load_paint);
     connect(ui->set_file_name_btn, &QPushButton::clicked, this, &MainWindow::get_exit_file);
@@ -184,6 +325,8 @@ void MainWindow::set_exit_file(QString filename){
 }
 
 void MainWindow::set_ru(){
+    clear_up_place->setText("Очистить верхнюю часть");
+    clear_down_place->setText("Очистить нижнюю часть");
     ui->save_btn->setText("Сохранить");
     ui->load_btn->setText("Загрузить");
     ui->set_file_name_btn->setText("...");
@@ -195,10 +338,12 @@ void MainWindow::set_ru(){
 }
 
 void MainWindow::set_en(){
+    clear_up_place->setText("Clean the top");
+    clear_down_place->setText("Clear the bottom");
     ui->save_btn->setText("Save");
     ui->load_btn->setText("Load");
     ui->set_file_name_btn->setText("...");
-    ui->clear_btn->setText("Clear");
+    ui->clear_btn->setText("Clean");
     ui->fill_btn->setText("Fill in");
     ui->copy_btn->setText("Copy");
     ui->lang_btn->setText("Русский");
@@ -211,7 +356,6 @@ void MainWindow::save_paint(){
 
     if(ui->lineEdit->text() == "") return;
 
-    QString paint_str = "";
     QString tmp_arr = "";
 
     for(int i{0}; i < 128; i++){
@@ -222,20 +366,18 @@ void MainWindow::save_paint(){
             else tmp_str += "0";
         }
 
-        paint_str += tmp_str + "   ";
-
         tmp_str = QString::number(tmp_str.toInt(NULL, 2), 16);
 
         if(tmp_str.length() == 1) tmp_str = "0x0" + tmp_str;
         else tmp_str = "0x" + tmp_str;
 
-        paint_str += tmp_str + "\n";
-
         tmp_arr += tmp_str;
 
         if(i != 127){
             tmp_arr += ", ";
-            if(i == 15 || i == 31 || i == 47 || i == 63 || i == 79 || i == 95 || i == 111) tmp_arr += "\n";
+            if(i == 15 || i == 31 || i == 47 || i == 63 || i == 79 || i == 95 || i == 111){
+                for(int j{0}; j < ui->new_line->text().toInt(); j++) tmp_arr += "\n";
+            }
         }
     }
 
@@ -243,12 +385,9 @@ void MainWindow::save_paint(){
 
     exit_file.open(QIODevice::ReadWrite | QIODevice::Truncate);
 
-    exit_file.write(paint_str.toUtf8());
-    exit_file.write("\n{");
+    exit_file.write("{");
     exit_file.write(tmp_arr.toUtf8());
-    exit_file.write("}");
-
-
+    exit_file.write("};");
 
     exit_file.close();
 }
@@ -411,4 +550,14 @@ void MainWindow::copy_arr(){
 void MainWindow::change_lang(){
     if(ui->lang_btn->text() == "English") set_en();
     else set_ru();
+}
+
+void MainWindow::up_new_line_num()
+{
+    if(ui->new_line->text().toInt() < 5) ui->new_line->setText(QString::number(ui->new_line->text().toInt() + 1, 10));
+}
+
+void MainWindow::down_new_line_num()
+{
+    if(ui->new_line->text().toInt() > 0) ui->new_line->setText(QString::number(ui->new_line->text().toInt() - 1, 10));
 }

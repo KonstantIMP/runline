@@ -31,6 +31,8 @@ if(ANDROID)
     main.cpp
     mainwindow.cpp
     mainwindow.h
+    orientbutton.h
+    orientbutton.cpp
     mainwindow.ui
     image_sorces.qrc
   )
@@ -39,6 +41,8 @@ else()
     main.cpp
     mainwindow.cpp
     mainwindow.h
+    orientbutton.h
+    orientbutton.cpp
     mainwindow.ui
     image_sorces.qrc
   )

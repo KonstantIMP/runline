@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QPushButton>
 
+#include "orientbutton.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -21,10 +23,15 @@ private:
 
     QPushButton *paint_place[128][8];
 
+    QPushButton *clear_column[128];
+
     void set_exit_file(QString);
 
     void set_ru();
     void set_en();
+
+    OrientablePushButton *clear_up_place;
+    OrientablePushButton *clear_down_place;
 
 private slots:
     void save_paint();
@@ -34,5 +41,7 @@ private slots:
     void fill_in();
     void copy_arr();
     void change_lang();
+    void up_new_line_num();
+    void down_new_line_num();
 };
 #endif // MAINWINDOW_H
