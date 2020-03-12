@@ -5,7 +5,7 @@
 #include <QClipboard>
 #include <QFile>
 
-#include <QDebug>
+#include <fstream>
 
 #define SIZE 18
 
@@ -23,14 +23,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->up_clear->setSpacing(1);
     ui->down_clear->setSpacing(1);
-
-    ui->up_new_line->setText("▲");
-    ui->up_new_line->setStyleSheet("font-size: 7px;");
-    connect(ui->up_new_line, &QPushButton::clicked, this, &MainWindow::up_new_line_num);
-
-    ui->down_new_line->setText("▼");
-    ui->down_new_line->setStyleSheet("font-size: 7px;");
-    connect(ui->down_new_line, &QPushButton::clicked, this, &MainWindow::down_new_line_num);
 
     clear_up_place = new OrientablePushButton();
     clear_up_place->setOrientation(OrientablePushButton::VerticalBottomToTop);
@@ -246,24 +238,51 @@ MainWindow::MainWindow(QWidget *parent)
         clear_column[i]->setStyleSheet("font-size: 8px;");
 
         connect(clear_column[i], &QPushButton::clicked, this, [=](){
+            QString column = "";
             for(int j{0}; j < 8; j++){
-                paint_place[i][j]->setText("f");
+                column += paint_place[i][j]->text();
+            }
+            if(column == "ffffffff"){
+                for(int j{0}; j < 8; j++){
+                    paint_place[i][j]->setText("t");
 
-                paint_place[i][j]->setStyleSheet("QPushButton{"
-                                                 "background-color:white;"
-                                                 "color:white;"
-                                                 "border:1px solid #808080;"
-                                                 "}"
-                                                 "QPushButton:hover{"
-                                                 "background-color: #808080;"
-                                                 "color:#808080;"
-                                                 "border-color:black;"
-                                                 "}"
-                                                 "QPushButton:pressed{"
-                                                 "background-color:black;"
-                                                 "color:black;"
-                                                 "border-color:white;"
-                                                 "}");
+                    paint_place[i][j]->setStyleSheet("QPushButton{"
+                                                     "background-color:black;"
+                                                     "color:black;"
+                                                     "border:1px solid #808080;"
+                                                     "}"
+                                                     "QPushButton:hover{"
+                                                     "background-color: #808080;"
+                                                     "color:#808080;"
+                                                     "border-color:white;"
+                                                     "}"
+                                                     "QPushButton:pressed{"
+                                                     "background-color:white;"
+                                                     "color:white;"
+                                                     "border-color:black;"
+                                                     "}");
+                }
+            }
+            else{
+                for(int j{0}; j < 8; j++){
+                    paint_place[i][j]->setText("f");
+
+                    paint_place[i][j]->setStyleSheet("QPushButton{"
+                                                     "background-color:white;"
+                                                     "color:white;"
+                                                     "border:1px solid #808080;"
+                                                     "}"
+                                                     "QPushButton:hover{"
+                                                     "background-color: #808080;"
+                                                     "color:#808080;"
+                                                     "border-color:black;"
+                                                     "}"
+                                                     "QPushButton:pressed{"
+                                                     "background-color:black;"
+                                                     "color:black;"
+                                                     "border-color:white;"
+                                                     "}");
+                }
             }
         });
 
@@ -281,24 +300,51 @@ MainWindow::MainWindow(QWidget *parent)
         clear_column[i + 64]->setStyleSheet("font-size: 8px;");
 
         connect(clear_column[i + 64], &QPushButton::clicked, this, [=](){
+            QString column = "";
             for(int j{0}; j < 8; j++){
-                paint_place[i + 64][j]->setText("f");
+                column += paint_place[i + 64][j]->text();
+            }
+            if(column == "ffffffff"){
+                for(int j{0}; j < 8; j++){
+                    paint_place[i + 64][j]->setText("t");
 
-                paint_place[i + 64][j]->setStyleSheet("QPushButton{"
-                                                 "background-color:white;"
-                                                 "color:white;"
-                                                 "border:1px solid #808080;"
-                                                 "}"
-                                                 "QPushButton:hover{"
-                                                 "background-color: #808080;"
-                                                 "color:#808080;"
-                                                 "border-color:black;"
-                                                 "}"
-                                                 "QPushButton:pressed{"
-                                                 "background-color:black;"
-                                                 "color:black;"
-                                                 "border-color:white;"
-                                                 "}");
+                    paint_place[i + 64][j]->setStyleSheet("QPushButton{"
+                                                     "background-color:black;"
+                                                     "color:black;"
+                                                     "border:1px solid #808080;"
+                                                     "}"
+                                                     "QPushButton:hover{"
+                                                     "background-color: #808080;"
+                                                     "color:#808080;"
+                                                     "border-color:white;"
+                                                     "}"
+                                                     "QPushButton:pressed{"
+                                                     "background-color:white;"
+                                                     "color:white;"
+                                                     "border-color:black;"
+                                                     "}");
+                }
+            }
+            else{
+                for(int j{0}; j < 8; j++){
+                    paint_place[i + 64][j]->setText("f");
+
+                    paint_place[i + 64][j]->setStyleSheet("QPushButton{"
+                                                     "background-color:white;"
+                                                     "color:white;"
+                                                     "border:1px solid #808080;"
+                                                     "}"
+                                                     "QPushButton:hover{"
+                                                     "background-color: #808080;"
+                                                     "color:#808080;"
+                                                     "border-color:black;"
+                                                     "}"
+                                                     "QPushButton:pressed{"
+                                                     "background-color:black;"
+                                                     "color:black;"
+                                                     "border-color:white;"
+                                                     "}");
+                }
             }
         });
 
@@ -375,19 +421,24 @@ void MainWindow::save_paint(){
 
         if(i != 127){
             tmp_arr += ", ";
-            if(i == 15 || i == 31 || i == 47 || i == 63 || i == 79 || i == 95 || i == 111){
-                for(int j{0}; j < ui->new_line->text().toInt(); j++) tmp_arr += "\n";
-            }
+            if(i == 15 || i == 31 || i == 47 || i == 63 || i == 79 || i == 95 || i == 111) tmp_arr += "\n ";
         }
     }
 
-    QFile exit_file(ui->lineEdit->text());
+    /*QFile exit_file(ui->lineEdit->text());
 
     exit_file.open(QIODevice::ReadWrite | QIODevice::Truncate);
 
     exit_file.write("{");
     exit_file.write(tmp_arr.toUtf8());
     exit_file.write("};");
+
+    exit_file.close();*/
+
+    std::ofstream exit_file(ui->lineEdit->text().toStdString() , std::ios_base::trunc);
+
+    tmp_arr = "{" + tmp_arr + "};";
+    exit_file << tmp_arr.toStdString();
 
     exit_file.close();
 }
@@ -544,20 +595,10 @@ void MainWindow::copy_arr(){
 
     QClipboard *data = QApplication::clipboard();
 
-    data->setText("{" + tmp_arr + "}");
+    data->setText("{" + tmp_arr + "};");
 }
 
 void MainWindow::change_lang(){
     if(ui->lang_btn->text() == "English") set_en();
     else set_ru();
-}
-
-void MainWindow::up_new_line_num()
-{
-    if(ui->new_line->text().toInt() < 5) ui->new_line->setText(QString::number(ui->new_line->text().toInt() + 1, 10));
-}
-
-void MainWindow::down_new_line_num()
-{
-    if(ui->new_line->text().toInt() > 0) ui->new_line->setText(QString::number(ui->new_line->text().toInt() - 1, 10));
 }
