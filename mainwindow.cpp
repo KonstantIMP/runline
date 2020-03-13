@@ -421,24 +421,20 @@ void MainWindow::save_paint(){
 
         if(i != 127){
             tmp_arr += ", ";
-            if(i == 15 || i == 31 || i == 47 || i == 63 || i == 79 || i == 95 || i == 111) tmp_arr += "\n ";
+            if(i == 15 || i == 31 || i == 47 || i == 63 || i == 79 || i == 95 || i == 111) {
+                tmp_arr += '\n';
+                tmp_arr += ' ';
+            }
         }
     }
 
-    /*QFile exit_file(ui->lineEdit->text());
+    QFile exit_file(ui->lineEdit->text());
 
     exit_file.open(QIODevice::ReadWrite | QIODevice::Truncate);
 
     exit_file.write("{");
     exit_file.write(tmp_arr.toUtf8());
     exit_file.write("};");
-
-    exit_file.close();*/
-
-    std::ofstream exit_file(ui->lineEdit->text().toStdString() , std::ios_base::trunc);
-
-    tmp_arr = "{" + tmp_arr + "};";
-    exit_file << tmp_arr.toStdString();
 
     exit_file.close();
 }
