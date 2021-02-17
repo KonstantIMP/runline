@@ -214,6 +214,7 @@ void MainWindow::set_ru(){
     ui->fill_btn->setText("Заполнить");
     ui->copy_btn->setText("Скопировать");
     ui->lang_btn->setText("English");
+    ui->about_btn->setText("Справка");
     ui->exit_btn->setText("Выход");
 }
 
@@ -227,6 +228,7 @@ void MainWindow::set_en(){
     ui->fill_btn->setText("Fill in");
     ui->copy_btn->setText("Copy");
     ui->lang_btn->setText("Русский");
+    ui->about_btn->setText("About");
     ui->exit_btn->setText("Exit");
 }
 
