@@ -9,6 +9,7 @@ resource_dir = 'resource/'
 
 runline_source = [
     'source/main.cpp',
+    'source/styles.h',
     'source/mainwindow.h',
     'source/mainwindow.cpp',
     'source/orientbutton.h',
