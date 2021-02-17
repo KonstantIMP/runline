@@ -3,9 +3,7 @@
 
 #include <QPushButton>
 
-class OrientablePushButton : public QPushButton
-{
-Q_OBJECT
+class OrientablePushButton : public QPushButton {
 public:
     enum Orientation {
         Horizontal,
@@ -13,14 +11,16 @@ public:
         VerticalBottomToTop
     };
 
-    OrientablePushButton(QWidget * parent = nullptr);
-    OrientablePushButton(const QString & text, QWidget *parent = nullptr);
-    OrientablePushButton(const QIcon & icon, const QString & text, QWidget *parent = nullptr);
+    OrientablePushButton(QWidget *parent = nullptr);
+    OrientablePushButton(const QString &text, QWidget *parent);
+    OrientablePushButton(const QIcon &icon, const QString &text, QWidget *parent);
 
     QSize sizeHint() const;
 
     OrientablePushButton::Orientation orientation() const;
     void setOrientation(const OrientablePushButton::Orientation &orientation);
+
+    virtual ~OrientablePushButton() {}
 
 protected:
     void paintEvent(QPaintEvent *event);
