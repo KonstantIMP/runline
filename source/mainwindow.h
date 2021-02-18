@@ -41,5 +41,6 @@ private slots:
     void fill_in();
     void copy_arr();
     void change_lang();
+    void get_about();
 };
 #endif // MAINWINDOW_H

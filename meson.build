@@ -1,4 +1,4 @@
-project('runline', ['cpp'], version : '0.1.0', default_options : ['cpp_std=c++11'])
+project('runline', ['cpp'], version : '1.0.2', default_options : ['cpp_std=c++11'])
 
 qt5_dep = dependency('qt5', modules: ['Core', 'Gui', 'Widgets'])
 qt5 = import('qt5')

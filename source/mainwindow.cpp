@@ -3,6 +3,7 @@
 
 #include "styles.h"
 
+#include <QMessageBox>
 #include <QFileDialog>
 #include <QClipboard>
 #include <QFile>
@@ -405,4 +406,9 @@ void MainWindow::copy_arr(){
 void MainWindow::change_lang(){
     if(ui->lang_btn->text() == "English") set_en();
     else set_ru();
+}
+
+void MainWindow::get_about() {
+    if(ui->lang_btn->text() == "English") QMessageBox::about(this, "О программе", "runline v1.0.2\nРазработал : KonstantIMP\nemail для связи : mihedovkos@gmail.com");
+    else QMessageBox::about(this, "About runline", "runline v1.0.2\nPowered by KonstantIMP\nFeedback email : mihedovkos@gmail.com");
 }
