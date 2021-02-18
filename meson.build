@@ -20,6 +20,7 @@ runline_resource = [
     qt5.preprocess(
     moc_headers : 'source/mainwindow.h',
     ui_files : 'resource/mainwindow.ui',
+    qresources : 'resource/image_sources.qrc',
     dependencies: [qt5_dep])
 ]
 

@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     this->setWindowTitle("Runline");
-    this->setWindowIcon(QIcon(":/images/images/runner.png"));
+    this->setWindowIcon(QIcon(":/images/runner.png"));
 
     ui->up_grid->setSpacing(1);
     ui->down_grid->setSpacing(1);
@@ -196,10 +196,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->exit_btn, &QPushButton::clicked, this, &MainWindow::close);
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::set_exit_file(QString filename){
     ui->lineEdit->setText(filename);
