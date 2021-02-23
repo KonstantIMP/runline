@@ -1,5 +1,5 @@
-#ifndef STYLES_H
-#define STYLES_H
+#ifndef STYLES_HPP
+#define STYLES_HPP
 
 #include <QString>
 

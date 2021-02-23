@@ -1,7 +1,7 @@
-#include "mainwindow.h"
+#include "mainwindow.hpp"
 #include "./ui_mainwindow.h"
 
-#include "styles.h"
+#include "styles.hpp"
 
 #include <QMessageBox>
 #include <QFileDialog>

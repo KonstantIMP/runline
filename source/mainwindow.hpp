@@ -1,10 +1,10 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MAINWINDOW_HPP
+#define MAINWINDOW_HPP
 
 #include <QMainWindow>
 #include <QPushButton>
 
-#include "orientbutton.h"
+#include "orientbutton.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -43,4 +43,4 @@ private slots:
     void change_lang();
     void get_about();
 };
-#endif // MAINWINDOW_H
+#endif // MAINWINDOW_HPP

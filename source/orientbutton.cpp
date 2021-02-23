@@ -1,4 +1,4 @@
-#include "orientbutton.h"
+#include "orientbutton.hpp"
 
 #include <QPainter>
 #include <QStyleOptionButton>

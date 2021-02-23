@@ -1,5 +1,5 @@
-#ifndef ORIENTBUTTON_H
-#define ORIENTBUTTON_H
+#ifndef ORIENTBUTTON_HPP
+#define ORIENTBUTTON_HPP
 
 #include <QPushButton>
 
@@ -29,4 +29,4 @@ private:
     Orientation mOrientation = Horizontal;
 };
 
-#endif // ORIENTBUTTON_H
+#endif // ORIENTBUTTON_HPP

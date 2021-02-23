@@ -9,16 +9,16 @@ resource_dir = 'resource/'
 
 runline_source = [
     'source/main.cpp',
-    'source/styles.h',
-    'source/mainwindow.h',
+    'source/styles.hpp',
+    'source/mainwindow.hpp',
     'source/mainwindow.cpp',
-    'source/orientbutton.h',
+    'source/orientbutton.hpp',
     'source/orientbutton.cpp'
 ]
 
 runline_resource = [
     qt5.preprocess(
-    moc_headers : 'source/mainwindow.h',
+    moc_headers : 'source/mainwindow.hpp',
     ui_files : 'resource/mainwindow.ui',
     qresources : 'resource/image_sources.qrc',
     dependencies: [qt5_dep])
